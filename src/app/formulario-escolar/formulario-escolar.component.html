@@ -1,0 +1,67 @@
+<form [formGroup]="formulario">
+    <!-- ALUNO -->
+    @if (formulario.get('aluno')?.hasError('required') && formulario.get('aluno')?.touched) {
+        <p class="alert alert-warning">O campo ALUNO é obrigatório.</p>
+    }
+    @if (formulario.get('aluno')?.hasError('minlength') && formulario.get('aluno')?.touched) {
+        <p class="alert alert-warning">O campo ALUNO precisa ter no mínimo 3 caracteres.</p>
+    }
+    <input type="text" formControlName="aluno" placeholder="Nome" class="form-control">
+
+    <!-- NOTA 01 -->
+    @if (formulario.get('nota1')?.hasError('required') && formulario.get('nota1')?.touched) {
+        <p class="alert alert-warning">O campo NOTA01 é obrigatório.</p>
+    }
+    @if (formulario.get('nota1')?.hasError('min') && formulario.get('nota1')?.touched) {
+        <p class="alert alert-warning">O campo NOTA01 precisa ser maior ou igual a zero.</p>
+    }
+    @if (formulario.get('nota1')?.hasError('max') && formulario.get('nota1')?.touched) {
+        <p class="alert alert-warning">O campo NOTA01 precisa ser menor ou igual a 10.</p>
+    }
+    <input type="number" formControlName="nota1" placeholder="Nota1" class="form-control">
+
+    <!-- NOTA 02 -->
+    @if (formulario.get('nota2')?.hasError('required') && formulario.get('nota2')?.touched) {
+        <p class="alert alert-warning">O campo NOTA01 é obrigatório.</p>
+    }
+    @if (formulario.get('nota2')?.hasError('min') && formulario.get('nota2')?.touched) {
+        <p class="alert alert-warning">O campo NOTA01 precisa ser maior ou igual a zero.</p>
+    }
+    @if (formulario.get('nota2')?.hasError('max') && formulario.get('nota2')?.touched) {
+        <p class="alert alert-warning">O campo NOTA01 precisa ser menor ou igual a 10.</p>
+    }
+    <input type="number" formControlName="nota2" placeholder="Nota2" class="form-control">
+
+    @if(btnCadastrar){
+        <input type="button" value="Cadastrar" (click)="Cadastrar()" class="btn btn-primary" [disabled]="formulario.invalid">
+    }@else {
+        <input type="button" value="Alterar" (click)="Alterar()" class="btn btn-primary" [disabled]="formulario.invalid">
+        <input type="button" value="Excluir" (click)="Remover()" class="btn btn-primary">
+        <input type="button" value="Cancelar" (click)="Cancelar()" class="btn btn-primary">
+    }
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Aluno</th>
+            <th>Nota 01</th>
+            <th>Nota 02</th>
+            <th>Média</th>
+            <th>Selecionar</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let v of vetor; index as indice">
+            <td>{{indice + 1}}</td>
+            <td>{{v.aluno}}</td>
+            <td>{{v.nota1}}</td>
+            <td>{{v.nota2}}</td>
+            <td>{{ v | mediaAluno }}</td>
+            <td><button class="btn btn-primary" (click)="Selecionar(indice)">Selecionar</button></td>
+        </tr>
+    </tbody>
+
+</table>
